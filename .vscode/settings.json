@@ -11,6 +11,8 @@
 		"array": "c",
 		"string": "c",
 		"string_view": "c",
-		"strings.h": "c"
+		"strings.h": "c",
+		"raylib_print.h": "c",
+		"save_load.h": "c"
 	}
 }

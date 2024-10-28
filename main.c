@@ -1,6 +1,8 @@
 #include "raylib.h" // CREDIT TO RAY
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
+#include "raydraw.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,12 +10,12 @@
 #include "include/sds.h" // CREDIT TO ANTIREZ, YOU SAVED ME
 #include "include/sdsalloc.h"
 #include "await.h"
-#include "screen.h"
-#include "save_load.h"
 
 // Self libraries:
 #include "strings.h"
 #include "raylib_print.h"
+#include "save_load.h"
+#include "screen.h"
 
 
 
@@ -21,13 +23,13 @@ int main(void) {
     // INITS
     int screenWidth = 1500;
     int screenHeight = 800;
-    int maxUserText = 40;
 
     Rectangle saveRect = {(screenWidth - 200), (screenHeight - 100), 200, 100};
     Rectangle loadRect = {(screenWidth - 450), (screenHeight - 100), 200, 100};
 
     sds userText = sdsnew(""); 
-    Vector2 textPos = {150, 50};
+    sds cursor = sdsnew("");
+
     
     InitWindow(screenWidth, screenHeight, "Raylib IDE");
     GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
@@ -54,27 +56,20 @@ int main(void) {
         raylib_Debug(intToStr(sdslen(userText)), 0);
 
         int width = MeasureText(userText, 50);
-        Vector2 vect2 = {width + 50, 50};
+        Vector2 vect2 = {width, 50};
         raylib_textCursor(vect2);
 
         
-        
-       
+        // main writing script
+        char charUserText = GetCharPressed();
+        raylib_Debug(charToString(charUserText), screenWidth - 100);
+        userText = sdscat(userText, charToString(charUserText));
 
-        if (sdslen(userText) < maxUserText) {
-            // main writing script
-            char charUserText = GetCharPressed();
-            raylib_Debug(charToString(charUserText), screenWidth - 100);
-            userText = sdscat(userText, charToString(charUserText));
-        } else {
-            userText = sdscat(userText, "\n");
-            maxUserText += 40;
-        }
 
+        Rectangle textArea = {50, 50, screenWidth - 50, (screenHeight - 200) - 50};
+        DrawTextBoxed(GetFontDefault(), userText, textArea, 50, 20, true, RED);
+        DrawTextBoxed(GetFontDefault(), cursor, textArea, 50, 20, true, RED);
         
-        
-        
-
         if (GetKeyPressed() == KEY_ENTER) {
             userText = sdscat(userText, "\n");
         }   
@@ -84,14 +79,6 @@ int main(void) {
             sdsrange(userText, 0, strlen(userText) - 2); // removes the last char using substring
             if (sdslen(userText) == 1) userText = sdsnew("");
         } 
-        
-        raylib_println(userText, textPos);
-
-        
-
-        
-        
-
 
         EndDrawing();
     }

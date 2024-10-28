@@ -14,7 +14,7 @@ void raylib_Debug(char* strout, int offset) {
 }
 
 void raylib_textCursor(Vector2 vect) {
-    DrawTextEx(GetFontDefault(), "|", vect, 50, 10, RED);   
+    DrawTextEx(GetFontDefault(), "|", vect, 50, 20, GRAY);   
 }
 
 
