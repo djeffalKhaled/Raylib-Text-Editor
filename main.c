@@ -21,39 +21,100 @@
 
 int main(void) {
     // INITS
-    int screenWidth = 1500;
-    int screenHeight = 800;
+    int initScreenWidth = 1500;
+    int initScreenHeight = 800;
 
-    Rectangle saveRect = {(screenWidth - 200), (screenHeight - 100), 200, 100};
-    Rectangle loadRect = {(screenWidth - 450), (screenHeight - 100), 200, 100};
+    Rectangle saveRect = {0, 0, 200, 50};
+    Rectangle loadRect = {200, 0, 200, 50};
+    Rectangle newRect = {400, 0, 200, 50};
+    Rectangle emptyRect = {600, 0, 200, 50};
+    Rectangle prevRect = {800, 0, 200, 50};
+    Rectangle nextRect = {1000, 0, 200, 50};
+
+
 
     sds userText = sdsnew(""); 
     sds cursor = sdsnew("");
+    int pagesLength = 10; // maximum pages
+    sds *texts = (sds*)malloc(sizeof(sds) * pagesLength);
+    texts = initStringArray(texts, pagesLength); // init to empty
+    int pageIndex = 0;
+    int page = 1;
 
     
-    InitWindow(screenWidth, screenHeight, "Raylib IDE");
+    InitWindow(initScreenWidth, initScreenHeight, "Raylib IDE");
     GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
 
-        handleScreenSize(screenWidth, screenHeight);
+        handleScreenSize(initScreenWidth, initScreenHeight);
+
+        Vector2 screen = getScreenSize(initScreenWidth, initScreenHeight);
+        int screenWidth = screen.x;
+        int screenHeight = screen.y;
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        DrawText("Raylib Text-Editor", screenWidth - 250, 10, 25, GRAY);
+
+        Rectangle textEditorRect = {0, 50, screenWidth, (screenHeight - 50)};
+        Rectangle textArea = {50, 100, screenWidth - 50, (screenHeight - 50) - 50};
+
+        // Settings
         if (GuiButton(saveRect, "Save")) {
-            saveToText(userText);
+            savePages(texts, pagesLength);
         }
         if (GuiButton(loadRect, "Load")) {
-            if (loadFromText() != NULL) userText = loadFromText();
+            if (loadPages(texts, 5) != NULL) {
+                texts = loadPages(texts, pagesLength);
+                pageIndex = 0; page = 1;
+                userText = texts[pageIndex];
+            };
+            printf("FILE LOAD: %s\n", userText);
         }
-        if (loadFromText() != NULL) raylib_Debug(loadFromText(), 50);
+
+        if (GuiButton(newRect, "New")) {
+            // removes all pages content
+            texts = initStringArray(texts, pagesLength);
+            userText = sdsnew("");
+            printf("TEXT: Init All pages\n");
+        }
+         if (GuiButton(emptyRect, "Empty")) {
+            // removes current page content
+            userText = sdsnew("");
+            texts[pageIndex] = sdsnew("");
+            printf("TEXT: Init Current Page\n");
+        }
 
 
-        Rectangle textEditorRect = {0, 0, screenWidth, (screenHeight - 200)};
-        GuiDrawRectangle(textEditorRect, 10, BLUE, WHITE);
-        raylib_Debug(intToStr(sdslen(userText)), 0);
+        // Pages
+        if (GuiButton(prevRect, "Previous Pg")) {
+            if (pageIndex > 0) {
+                pageIndex--; page--;
+                userText = texts[pageIndex];
+                printf("PAGE INDEX: %d\n", pageIndex);
+            }
+        }
+        if (GuiButton(nextRect, "Next Pg")) {
+            if (pageIndex < pagesLength) {
+                texts[pageIndex] = userText;
+                if (pageIndex != (pagesLength - 1)) {
+                    pageIndex++; page++;
+                    userText = texts[pageIndex];
+                }
+                printf("PAGE INDEX: %d\n", pageIndex);
+            }
+        }
+
+
+        
+        GuiDrawRectangle(textEditorRect, 10, GRAY, WHITE);
+        raylib_Debug(intToStr(sdslen(userText)), 200);
+
+        // Page text
+        DrawText(intToStr(page), screenWidth - 50, screenHeight - 50, 40, BLACK);
 
         int width = MeasureText(userText, 50);
         Vector2 vect2 = {width, 50};
@@ -66,7 +127,7 @@ int main(void) {
         userText = sdscat(userText, charToString(charUserText));
 
 
-        Rectangle textArea = {50, 50, screenWidth - 50, (screenHeight - 200) - 50};
+        
         DrawTextBoxed(GetFontDefault(), userText, textArea, 50, 20, true, RED);
         DrawTextBoxed(GetFontDefault(), cursor, textArea, 50, 20, true, RED);
         
@@ -78,7 +139,7 @@ int main(void) {
             delay(100);
             sdsrange(userText, 0, strlen(userText) - 2); // removes the last char using substring
             if (sdslen(userText) == 1) userText = sdsnew("");
-        } 
+        }
 
         EndDrawing();
     }

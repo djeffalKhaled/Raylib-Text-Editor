@@ -11,8 +11,17 @@ void centerWindow(int screenWidth, int screenHeight) {
     SetWindowPosition((int)(monitorWidth / 2) - (int)(screenWidth / 2), (int)(monitoHeight / 2) - (int)(screenHeight / 2));
 }
 
+Vector2 getScreenSize(int initScreenWidth, int initScreenHeight) {
+    Vector2 screen = {initScreenWidth, initScreenHeight};
+    if (IsWindowFullscreen()) {
+        int monitor = GetCurrentMonitor();
+        screen.x = GetMonitorWidth(monitor); screen.y = GetMonitorHeight(monitor);
+    }
+    return screen;
+}
+
 void handleScreenSize(int screenWidth, int screenHeight) {
-    if (IsKeyPressed(KEY_ENTER) && (IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT)))
+    if (IsKeyPressed(KEY_F) && (IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT)))
  	{
         if (!IsWindowFullscreen()) {
             int monitor = GetCurrentMonitor();

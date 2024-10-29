@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "sds.h"
 
 typedef char* string;
 
@@ -110,5 +111,13 @@ void println(string str) {
     printf("%s\n", str);
 }
 
+
+// only sds function
+sds* initStringArray(sds* texts, int length) {
+    for (int i = 0; i < length; i++) {
+        texts[i] = sdsnew("");
+    }
+    return texts;
+}
 
 #endif // STRING_H
