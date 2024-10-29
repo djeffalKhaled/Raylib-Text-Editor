@@ -1,7 +1,7 @@
 #ifndef AWAIT_H
 #define AWAIT_H
-// The one and only AWAIT aka COROUTINES that I sailed the waves to find
-// Found from some legend at redit
+// The one and only self titled AWAIT aka COROUTINES that I sailed the waves to find
+// Found from some legend at reddit
 // Credit to u/jwzumwalt
 
 #include <stdio.h>

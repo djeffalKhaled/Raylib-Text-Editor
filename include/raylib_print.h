@@ -1,6 +1,6 @@
 #ifndef RAYLIB_PRINT_H
 #define RAYLIB_PRINT_H
-#include "raylib.h"
+#include "../raylib.h"
 
 void raylib_print(char* strout) {
     DrawText(strout, 0, 0, 50, RED);

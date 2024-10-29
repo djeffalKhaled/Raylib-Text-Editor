@@ -9,13 +9,13 @@
 #include "include/sds.c"
 #include "include/sds.h" // CREDIT TO ANTIREZ, YOU SAVED ME
 #include "include/sdsalloc.h"
-#include "await.h"
+#include "include/await.h"
 
 // Self libraries:
-#include "strings.h"
-#include "raylib_print.h"
-#include "save_load.h"
-#include "screen.h"
+#include "include/strings.h"
+#include "include/raylib_print.h"
+#include "include/save_load.h"
+#include "include/screen.h"
 
 
 

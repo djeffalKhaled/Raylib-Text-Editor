@@ -1,7 +1,7 @@
 // Handles all screen related functions
 #ifndef SCREEN_H
 #define SCREEN_H
-#include "raylib.h"
+#include "../raylib.h"
 
 void centerWindow(int screenWidth, int screenHeight) {
     // credit to omegapy

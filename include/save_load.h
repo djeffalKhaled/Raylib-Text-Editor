@@ -2,10 +2,9 @@
 #define SAVE_LOAD_H
 #include <stdio.h>
 #include <stdlib.h>
-#include "raylib.h"
+#include "../raylib.h"
 #include "raylib_print.h"
-#include "include/sds.h"
-void saveToText(sds);
+#include "sds.h"
 
 
 
@@ -15,7 +14,7 @@ void saveToText(sds strout) {
 
     FILE *file = fopen("save.txt", "w");
     if (file == NULL) {
-        raylib_Debug("Failure to create file!", 100);
+        printf("FILE IO: Failure to create file!\n");
         fclose(file);
         return;
     }
@@ -29,7 +28,7 @@ void saveToText(sds strout) {
 sds loadFromText() {
     FILE *file = fopen("save.txt", "r");
     if (file == NULL) {
-        raylib_Debug("Failure to create file!", 100);
+        printf("FILE IO: Failure to create file!\n");
     }
 
     sds strin = sdsnew("");
