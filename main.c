@@ -63,10 +63,10 @@ int main(void) {
         Rectangle textArea = {50, 100, screenWidth - 50, (screenHeight - 50) - 50};
 
         // Settings
-        if (GuiButton(saveRect, "Save")) {
+        if (GuiButton(saveRect, "#02#Save")) {
             savePages(texts, pagesLength);
         }
-        if (GuiButton(loadRect, "Load")) {
+        if (GuiButton(loadRect, "#04#Load")) {
             if (loadPages(texts, 5) != NULL) {
                 texts = loadPages(texts, pagesLength);
                 pageIndex = 0; page = 1;
@@ -75,13 +75,13 @@ int main(void) {
             printf("FILE LOAD: %s\n", userText);
         }
 
-        if (GuiButton(newRect, "New")) {
+        if (GuiButton(newRect, "#08#New")) {
             // removes all pages content
             texts = initStringArray(texts, pagesLength);
             userText = sdsnew("");
             printf("TEXT: Init All pages\n");
         }
-         if (GuiButton(emptyRect, "Empty")) {
+         if (GuiButton(emptyRect, "#143#Empty")) {
             // removes current page content
             userText = sdsnew("");
             texts[pageIndex] = sdsnew("");
@@ -90,14 +90,14 @@ int main(void) {
 
 
         // Pages
-        if (GuiButton(prevRect, "Previous Pg")) {
+        if (GuiButton(prevRect, "#118#Previous Pg")) {
             if (pageIndex > 0) {
                 pageIndex--; page--;
                 userText = texts[pageIndex];
                 printf("PAGE INDEX: %d\n", pageIndex);
             }
         }
-        if (GuiButton(nextRect, "Next Pg")) {
+        if (GuiButton(nextRect, "#119#Next Pg")) {
             if (pageIndex < pagesLength) {
                 texts[pageIndex] = userText;
                 if (pageIndex != (pagesLength - 1)) {
@@ -111,14 +111,16 @@ int main(void) {
 
         
         GuiDrawRectangle(textEditorRect, 10, GRAY, WHITE);
-        raylib_Debug(intToStr(sdslen(userText)), 200);
+        
 
-        // Page text
-        DrawText(intToStr(page), screenWidth - 50, screenHeight - 50, 40, BLACK);
+        // Text Details Section
+        DrawText(intToStr(page), screenWidth - 50, screenHeight - 50, 40, LIGHTGRAY);
+        DrawText(intToStr(sdslen(userText)), 50, screenHeight - 50, 40, LIGHTGRAY);
 
-        int width = MeasureText(userText, 50);
-        Vector2 vect2 = {width, 50};
-        raylib_textCursor(vect2);
+        // Attempt at a text cursor
+        //int width = MeasureText(userText, 50);
+        //Vector2 vect2 = {width, 50};
+        //raylib_textCursor(vect2);
 
         
         // main writing script
@@ -128,8 +130,8 @@ int main(void) {
 
 
         
-        DrawTextBoxed(GetFontDefault(), userText, textArea, 50, 20, true, RED);
-        DrawTextBoxed(GetFontDefault(), cursor, textArea, 50, 20, true, RED);
+        DrawTextBoxed(GetFontDefault(), userText, textArea, 40, 10, true, BLACK);
+        //DrawTextBoxed(GetFontDefault(), cursor, textArea, 50, 20, true, RED);
         
         if (GetKeyPressed() == KEY_ENTER) {
             userText = sdscat(userText, "\n");
