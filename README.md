@@ -1,9 +1,5 @@
 # Raylib Text-Editor: 
-
-Text-editor programmed in C Language using the Raylib Library. <br>
-Write your notes in a retro styled program similar to the Macintosh 128K style. Once done you can save and load your notes with ease, all within a text editor fully built in C!
-
-
+Write your notes in a retro styled program similar to the Macintosh 128K style. Once done you can save and load your notes with ease, all within a text editor fully built in C! 
 
 # Functionality:
 - Simple text editing
