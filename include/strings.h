@@ -120,4 +120,20 @@ sds* initStringArray(sds* texts, int length) {
     return texts;
 }
 
+sds appendCursor(sds text, int appendIndex) {
+    sds cursor = sdscat(text, "|"); // the cursor
+    return cursor;
+}
+
+
+
+sds appendCursorAtmp1(int appendIndex) {
+    sds cursor = sdsnew("\xC2\xA0"); // Non breaking space UTF8
+    for (int i = 0; i < appendIndex; i++) {
+        cursor = sdscat(cursor, " ");
+    }
+    cursor = sdscat(cursor, "|"); // the cursor
+    return cursor;
+}
+
 #endif // STRING_H

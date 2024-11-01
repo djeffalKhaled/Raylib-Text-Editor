@@ -35,5 +35,14 @@ void handleScreenSize(int screenWidth, int screenHeight) {
     }
 }
 
+// Allows mouse scrolling of a rectangle object -- mainly for textArea
+Rectangle setScrollable(Rectangle rect, int scrollSpeed) {
+    int posY = rect.y;
+    posY += (int)(GetMouseWheelMove()*scrollSpeed);
+    rect.height -= (int)(GetMouseWheelMove() *  scrollSpeed);
+    rect.y = posY;
+    return rect;
+}
+
 
 #endif // SCREEN_H
