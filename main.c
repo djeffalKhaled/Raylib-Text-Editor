@@ -24,6 +24,7 @@ int main(void) {
     int initScreenWidth = 1500;
     int initScreenHeight = 800;
     int scrollSpeed = 15;
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
     Rectangle saveRect = {0, 0, 200, 50};
     Rectangle loadRect = {200, 0, 200, 50};
@@ -100,6 +101,10 @@ int main(void) {
             if (sdslen(userText) == 1) userText = sdsnew("");
         }
 
+        if (IsKeyDown(KEY_TAB)) {
+            userText = sdscat(userText, "\t");
+        }
+
 
         
         // Settings ---GUI---
@@ -121,7 +126,7 @@ int main(void) {
             userText = sdsnew("");
             printf("TEXT: Init All pages\n");
         }
-         if (GuiButton(emptyRect, "#143#Empty")) {
+        if (GuiButton(emptyRect, "#143#Empty")) {
             // removes current page content
             userText = sdsnew("");
             texts[pageIndex] = sdsnew("");

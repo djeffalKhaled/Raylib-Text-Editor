@@ -11,8 +11,9 @@ void centerWindow(int screenWidth, int screenHeight) {
     SetWindowPosition((int)(monitorWidth / 2) - (int)(screenWidth / 2), (int)(monitoHeight / 2) - (int)(screenHeight / 2));
 }
 
+// Gets all cases of screen sizes
 Vector2 getScreenSize(int initScreenWidth, int initScreenHeight) {
-    Vector2 screen = {initScreenWidth, initScreenHeight};
+    Vector2 screen = {GetScreenWidth(), GetScreenHeight()};
     if (IsWindowFullscreen()) {
         int monitor = GetCurrentMonitor();
         screen.x = GetMonitorWidth(monitor); screen.y = GetMonitorHeight(monitor);

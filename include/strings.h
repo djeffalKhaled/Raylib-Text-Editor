@@ -106,6 +106,12 @@ string doubleToStr(float val) {
     return str;
 }
 
+int length(string str) {
+    int i = 0;
+    while (str[i] != '\0') i++;
+    return i;
+}
+
 // prints the string with a new line
 void println(string str) {
     printf("%s\n", str);
@@ -119,13 +125,6 @@ sds* initStringArray(sds* texts, int length) {
     }
     return texts;
 }
-
-sds appendCursor(sds text, int appendIndex) {
-    sds cursor = sdscat(text, "|"); // the cursor
-    return cursor;
-}
-
-
 
 sds appendCursorAtmp1(int appendIndex) {
     sds cursor = sdsnew("\xC2\xA0"); // Non breaking space UTF8

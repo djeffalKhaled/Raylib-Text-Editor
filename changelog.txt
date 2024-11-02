@@ -1,11 +1,13 @@
 Changelog: 
 
-v 0.4: 01/11
+v 0.4: 01/11 + 02/11
     - Added mousewheel scrolling support
     - Added icons for all buttons
     - Organised code in main.c 
     - Added a very elementary cursor 
     - TextArea now only resizes width based on window -- Add height support later
+    - Allowed screen-resizing 
+    - Tabs support
 
 v 0.3: 29/10
     - Better GUI positions
