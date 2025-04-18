@@ -6,5 +6,4 @@ Text editor programmed in C language. I kept the style with a default raylib loo
 - Simple Dynamic Strings
 
 ## Installation:
-- Run the main.exe file directly.
-- You can also compile the project yourself by opening it in VS Code.
+- Run the main.exe file directly or compile it.
