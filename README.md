@@ -1,15 +1,8 @@
 # Raylib Text-Editor: 
-Write your notes in a retro styled program similar to the Macintosh 128K style. Once done you can save and load your notes with ease, all within a text editor fully built in C! 
-
-## Functionality:
-- Full text editing
-- Ability to save and load your content into a text file
-- Up to 10 pages of text
-- Fully scrollable and resizable window
+Text editor programmed in C language. I kept the style with a default raylib look cuz it looked like an old macintosh program, it fits that "c vibe" ig lol.
 
 ## Libraries:
-- Raylib
-- RayGUI
+- Raylib + RayGUI
 - Simple Dynamic Strings
 
 ## Installation:
